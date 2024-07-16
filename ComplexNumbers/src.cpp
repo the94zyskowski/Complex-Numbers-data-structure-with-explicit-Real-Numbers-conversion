@@ -41,20 +41,3 @@ public:
         std::cout << "Real: " << a << ", Imaginary: " << b << std::endl;
     }
 };
-
-int main() {
-    ComplexNumber complexnumber{ 7, 3.22 };
-
-    RealNumber rn{ 3.14 };
-
-    // Implicit conversion - not allowed
-    // ComplexNumber complexnumber = rn;
-
-    // Explicit conversion - allowed
-    ComplexNumber complexnumb = static_cast<ComplexNumber>(rn);
-
-    complexnumber.print_complex_number();
-    complexnumb.print_complex_number();
-
-    return 0;
-}
