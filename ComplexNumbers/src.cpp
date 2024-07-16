@@ -37,7 +37,4 @@ public:
         return std::sqrt(a * a + b * b);
     }
 
-    void display() const {
-        std::cout << "Real: " << a << ", Imaginary: " << b << std::endl;
-    }
 };
