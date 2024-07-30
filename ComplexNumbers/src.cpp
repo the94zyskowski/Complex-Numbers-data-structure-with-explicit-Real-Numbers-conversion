@@ -36,5 +36,55 @@ public:
     operator double() const {
         return std::sqrt(a * a + b * b);
     }
+    
+    friend ComplexNumber operator+(const ComplexNumber& lhs, const ComplexNumber& rhs);
+    friend ComplexNumber operator-(const ComplexNumber& lhs, const ComplexNumber& rhs);
+    friend ComplexNumber operator*(const ComplexNumber& lhs, const ComplexNumber& rhs);
+    friend ComplexNumber operator/(const ComplexNumber& lhs, const ComplexNumber& rhs);
+
+    friend bool operator==(const ComplexNumber& lhs, const ComplexNumber& rhs);
+    friend bool operator!=(const ComplexNumber& lhs, const ComplexNumber& rhs);
+
+    friend std::ostream& operator<<(std::ostream& os, const ComplexNumber& cn);
+    friend std::istream& operator>>(std::istream& is, ComplexNumber& cn);
 
 };
+
+ComplexNumber operator+(const ComplexNumber& lhs, const ComplexNumber& rhs) {
+    return ComplexNumber(lhs.a + rhs.a, lhs.b + rhs.b);
+}
+
+ComplexNumber operator-(const ComplexNumber& lhs, const ComplexNumber& rhs) {
+    return ComplexNumber(lhs.a - rhs.a, lhs.b - rhs.b);
+}
+
+ComplexNumber operator*(const ComplexNumber& lhs, const ComplexNumber& rhs) {
+    return ComplexNumber(lhs.a * rhs.a - lhs.b * rhs.b, lhs.a * rhs.b + lhs.b * rhs.a);
+}
+
+ComplexNumber operator/(const ComplexNumber& lhs, const ComplexNumber& rhs) {
+    double denominator = rhs.a * rhs.a + rhs.b * rhs.b;
+    return ComplexNumber((lhs.a * rhs.a + lhs.b * rhs.b) / denominator, (lhs.b * rhs.a - lhs.a * rhs.b) / denominator);
+}
+
+bool operator==(const ComplexNumber& lhs, const ComplexNumber& rhs) {
+    return lhs.a == rhs.a && lhs.b == rhs.b;
+}
+
+bool operator!=(const ComplexNumber& lhs, const ComplexNumber& rhs) {
+    return !(lhs == rhs);
+}
+
+
+std::ostream& operator<<(std::ostream& os, const ComplexNumber& cn) {
+    os << "(" << cn.get_a() << " + " << cn.get_b() << "i)";
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, ComplexNumber& cn) {
+    double a, b;
+    is >> a >> b;
+    cn.set_a(a);
+    cn.set_b(b);
+    return is;
+}
